@@ -54,6 +54,14 @@ module Lowes
       job_details[5].text
     end
 
+    def city
+      split_location[0]
+    end
+
+    def state
+      split_location[-1]
+    end
+
     def description
       job_details[6].text
     end
@@ -74,6 +82,10 @@ module Lowes
 
     def job_details
       @details ||= page.search(".TEXT")
+    end
+
+    def split_location
+      location.split(", ")
     end
 
   end
