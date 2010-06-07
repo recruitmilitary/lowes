@@ -63,7 +63,7 @@ module Lowes
     end
 
     def description
-      job_details[6].text
+      page.search(".pc-rtg-body").text.strip
     end
 
     # internal methods
@@ -78,10 +78,6 @@ module Lowes
 
     def redirect_page
       @redirect_page ||= agent.get(redirect_url)
-    end
-
-    def job_details
-      @details ||= page.search(".TEXT")
     end
 
     def split_location
