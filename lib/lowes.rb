@@ -51,7 +51,7 @@ module Lowes
     end
 
     def location
-      job_details[5].text
+      page.search("#pc-rtg-main tr:nth-child(1) .jobDetailValue span").text.strip.gsub(/\s+/, ' ')
     end
 
     def city

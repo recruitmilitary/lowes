@@ -44,15 +44,15 @@ describe Lowes do
       end
 
       it 'should extract the location' do
-        @job.location.should == "North Bergen, NJ"
+        @job.location.should == "Mooresville, North Carolina"
       end
 
       it 'should extract the city from location' do
-        @job.city.should == "North Bergen"
+        @job.city.should == "Mooresville"
       end
 
       it 'should extract the state from location' do
-        @job.state.should == "NJ"
+        @job.state.should == "North Carolina"
       end
 
       it 'should extract the description' do
