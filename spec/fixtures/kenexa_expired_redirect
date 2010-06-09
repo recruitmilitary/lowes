@@ -1,11 +1,11 @@
 HTTP/1.1 200 OK
-Date: Wed, 09 Jun 2010 12:19:56 GMT
+Date: Wed, 09 Jun 2010 12:16:09 GMT
 Server: Microsoft-IIS/6.0
 X-Powered-By: ASP.NET
 X-AspNet-Version: 2.0.50727
 Cache-Control: private
 Content-Type: text/html; charset=utf-8
-Content-Length: 1261
+Content-Length: 1239
 
 
 
@@ -15,8 +15,8 @@ Content-Length: 1261
 	Lowe's Careers - Let's Build Something Together
 </title></head>
 <body>
-    <form name="form1" method="post" action="Gotopeopleclick.aspx?Jobid=153403" id="form1">
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNzgzNDMwNTMzZGQGPo45JiqBIwlHcO62izivE46/Dw==" />
+    <form name="form1" method="post" action="GotoKenexa.aspx?jobid=10231BR" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNzgzNDMwNTMzZGRTGKbbbgyF+n9onzd74IMlT4hMsw==" />
 
         <div>
             <p align="center">
@@ -24,7 +24,7 @@ Content-Length: 1261
         </div>
     </form>
 
-   <script type="text/javascript">
+    <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
@@ -36,4 +36,4 @@ pageTracker._trackPageview();
 
 </body>
 </html>
-<meta http-equiv="Refresh" content="3;url=http://careers.peopleclick.com/careerscp/client_lowes/external/gateway.do?functionName=viewFromLink&amp;jobPostId=155060&amp;localeCode=en-us" />
+<meta http-equiv="Refresh" content="3;url=https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&amp;siteid=5014&amp;AReq=EXPIRED&amp;Codes=LOWES" />

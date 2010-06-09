@@ -89,7 +89,9 @@ describe Lowes do
 
     describe ".all" do
 
-      it 'should return a list of jobs'
+      it 'should return a list of jobs' do
+        Lowes::Job.all.size.should == 2
+      end
 
     end
 

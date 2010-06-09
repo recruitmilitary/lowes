@@ -11,18 +11,6 @@ module Lowes
 
     UnknownFormat = Class.new(StandardError)
 
-    def self.parse(item)
-      url = Parser.parse_url_from_meta(item.link)
-      case url
-      when /brassring/
-        KenexaParser.parse(item, url)
-      when /peopleclick/
-        PeopleclickParser.parse(item, url)
-      else
-        raise UnknownFormat
-      end
-    end
-
     module Agent
 
       def agent
@@ -99,10 +87,25 @@ module Lowes
 
     end
 
+    def self.parse(item)
+      url = Parser.parse_url_from_meta(item.link)
+      case url
+      when /brassring/
+        KenexaParser.parse(item, url)
+      when /peopleclick/
+        PeopleclickParser.parse(item, url)
+      else
+        raise UnknownFormat
+      end
+    end
+
     def self.all
       feed.items.map do |item|
-        create_job_from_item(item)
-      end
+        begin
+          Job.new parse(item)
+        rescue Job::ExpiredError
+        end
+      end.compact
     end
 
     def self.data
@@ -113,7 +116,7 @@ module Lowes
       RSS::Parser.parse(data, false)
     end
 
-    attr_reader :id, :title, :redirect_url, :category
+    attr_reader :id, :title, :url, :category, :location, :description
 
     def initialize(attributes = {})
       attributes.each do |k, v|
