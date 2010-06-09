@@ -112,9 +112,11 @@ module Lowes
         begin
           Job.new parse(item)
         rescue Job::ExpiredError
+          $stderr.puts "Job::ExpiredError: ignoring #{item.link}"
           nil
         rescue Timeout::Error
           retry_count += 1
+          $stderr.puts "Timeout::Error: attempt ##{retry_count} for #{item.link}"
           retry unless retry_count > 2
           nil
         end
