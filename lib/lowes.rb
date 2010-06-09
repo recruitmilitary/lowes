@@ -57,6 +57,13 @@ module Lowes
 
     class KenexaParser < Parser
 
+      def description
+        node = page.search(".TEXT")[6]
+        if node
+          node.children.map { |c| c.text }.join("\n")
+        end
+      end
+
       def parse
         raise ExpiredError if page.search("td td").text =~ /expired/
         {
@@ -65,7 +72,7 @@ module Lowes
           :title => title,
           :category => category,
           :location => page.search(".TEXT")[5].text,
-          :description => page.search(".TEXT")[6].children.map { |c| c.text }.join("\n")
+          :description => description
         }
       end
 
@@ -102,8 +109,14 @@ module Lowes
     def self.all
       feed.items.map do |item|
         begin
+          retry_count = 0
           Job.new parse(item)
         rescue Job::ExpiredError
+          nil
+        rescue Timeout::Error
+          retry_count += 1
+          retry unless retry_count > 2
+          nil
         end
       end.compact
     end
