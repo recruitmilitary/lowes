@@ -48,7 +48,25 @@ describe Lowes do
 
       describe "when peopleclick" do
 
-        it 'should return the attributes for the job'
+        before do
+          @category = double("item category", :content => "Repair Services")
+          @item = double("item",
+                         :link => Lowes::PeopleclickJobRedirectURL,
+                         :title => "Program Development Analyst -NC-Wilkesboro",
+                         :category => @category)
+          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::PeopleclickJobRedirectURL).and_return(Lowes::PeopleclickJobURL)
+        end
+
+        it 'should return the attributes for the job' do
+          Lowes::Job.parse(@item).should == {
+            :id => "117530",
+            :url => "http://careers.peopleclick.com/careerscp/client_lowes/external/gateway.do?functionName=viewFromLink&jobPostId=155060&localeCode=en-us",
+            :title => "Program Development Analyst",
+            :category => "Repair Services",
+            :location => "Wilkesboro, North Carolina",
+            :description => "The Contact Center Program Development Analyst manages the development and implementation of new Contact Center programs, provides stable technology solutions that support program goals, and produces regular and ad-hoc reporting that provide actionable data to Contact Center management and other Lowe\342\200\231s business areas.This requires active project management, frequent collaboration (with Contact Center teams, other Lowe\342\200\231s business areas, and external vendors), managing deliverables and service level commitments (IT), and ongoing proactive data analysis.\342\200\242 Develop and manage cross-functional project plans for key Contact Center initiatives, including establishing timelines and accountabilities for Contact Center resources, other Lowe\342\200\231s business areas, and external vendors.\342\200\242 Conduct ongoing needs analysis to ensure Contact Center technology offers functionality that meets business requirements. \302\240\342\200\242 Implement and manage processes, controls, and IT service levels to ensure the stability of Contact Center technology. \302\240Includes serving as System Administrator for selected technologies.\342\200\242 Establish a methodology and discipline for proactively analyzing the data collected through customer interactions. \302\240Through that analysis, identify opportunities to produce targeted, actionable reporting for Lowe\342\200\231s business areas (stores, Merchandising, Marketing, Installed Sales, SOS, etc.). \302\240The role is to provide recommendations, not data.\342\200\242 Provide regular, actionable reporting to measure overall Contact Center performance, as well as individual and team performance. \302\240Ensure Directors, Managers, and Supervisors receive the information they need to effectively manage their businesses. \302\240Includes analysis of the data to identify trends and make recommendations for process, program, or overall Contact Center performance improvements.\342\200\242 Provide regular feedback and development opportunities to direct reports, with a focus on succession planning within the work group and across the department.\342\200\242 Manage financial, temporal, and deliverable scopes of projects. \342\200\242 Identify and track risk in Contact Center initiatives and take appropriate action to address the risk. Essential Knowledge, Skills, & Abilities\342\200\242 Problem Solving and Decision Making\342\200\242 Cooperation, Collaboration, and Influencing Others\342\200\242 Supervision, Delegation and Coaching\342\200\242 Accountability and Attention to Detail\342\200\242 Planning, Prioritization and Project Management\342\200\242 Oral and Written Communication Skills\r\n\t      \t\t\r\n\t\t\t\t\t\342\200\242 Four-year degree or equivalent work experience \342\200\242 Three to five years of business analysis experience \342\200\242 Three years project management experience with increasing levels of management responsibility \342\200\242 Knowledge of quality standards \342\200\242 Knowledge of Office Suite products and project planning tools \342\200\242 Experience reporting and analyzing data. \342\200\242 Proven ability to take direction and proceed independently \342\200\242 Past roles as a project leader (PM experience) \342\200\242 Experience leading people, whether as primary job responsibility or related to a specific project/initiative \342\200\242 Solid experience with data mining and analysis \342\200\242 Demonstrable experience creating and utilizing the following software and languages: -Software Microsoft SQL Server MS Access Crystal Reports Cognos (secondary to Crystal Reports) -Languages Visual Basic Java JavaScript SQL\r\n          \t\t\r\n\t\t\t\t\t\342\200\242 Four-year degree in Computer Science or Information Systems\342\200\242 Experience with Remedy, Siebel and Avaya\342\200\242 Information Technology acumen\342\200\242 Ability to communicate technology solutions on a high level to non-technical business people, as well as, foster a collaborative environment between IT and the business",
+          }
+        end
 
       end
 

@@ -21,8 +21,11 @@ Lowes::KenexaJobURL = "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp
 
 Lowes::PeopleclickExpiredJobRedirectURL = "https://careers.lowes.com/Gotopeopleclick.aspx?Jobid=EXPIRED"
 Lowes::PeopleclickExpiredJobURL = "http://careers.peopleclick.com/careerscp/client_lowes/external/gateway.do?functionName=viewFromLink&jobPostId=EXPIRED&localeCode=en-us"
+Lowes::PeopleclickJobRedirectURL = "https://careers.lowes.com/Gotopeopleclick.aspx?Jobid=155060"
+Lowes::PeopleclickJobURL = "http://careers.peopleclick.com/careerscp/client_lowes/external/gateway.do?functionName=viewFromLink&jobPostId=155060&localeCode=en-us"
 
 stub_get("http://feeds2.feedburner.com/Lowes-Careers-All", "rss_feed")
 stub_get(Lowes::KenexaExpiredJobURL, "kenexa_expired_job")
 stub_get(Lowes::PeopleclickExpiredJobURL, "peopleclick_expired_job")
 stub_get(Lowes::KenexaJobURL, "kenexa_job")
+stub_get(Lowes::PeopleclickJobURL, "peopleclick_job")

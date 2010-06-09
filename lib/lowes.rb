@@ -38,6 +38,14 @@ module Lowes
     def self.parse_peopleclick(item, url)
       page = agent.get(url)
       raise ExpiredError if page.search("li").text =~ /no longer active/
+      {
+        :id => page.search(".jobDetailValue")[0].text,
+        :url => url,
+        :title => item.title.gsub(/ -\w\w-.*$/, ''),
+        :category => item.category.content,
+        :location => page.search(".jobDetailValue")[1].text.strip.gsub(/\s+/, ' '),
+        :description => page.search(".pc-rtg-body").text.strip
+      }
     end
 
     def self.parse_url_from_meta(redirect_url)
