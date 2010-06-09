@@ -61,6 +61,8 @@ module Lowes
         node = page.search(".TEXT")[6]
         if node
           node.children.map { |c| c.text }.join("\n")
+        else
+          ""
         end
       end
 
