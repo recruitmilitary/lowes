@@ -108,8 +108,8 @@ module Lowes
 
     def self.all
       feed.items.map do |item|
+        retry_count = 0
         begin
-          retry_count = 0
           Job.new parse(item)
         rescue Job::ExpiredError
           nil
