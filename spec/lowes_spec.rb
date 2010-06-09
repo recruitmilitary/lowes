@@ -15,7 +15,7 @@ describe Lowes do
                          :link => Lowes::KenexaJobRedirectURL,
                          :title => "Seasonal Receiver/Stocker Overnight -NJ-Egg Harbor Township",
                          :category => @category)
-          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::KenexaJobRedirectURL).and_return(Lowes::KenexaJobURL)
+          Lowes::Job::Parser.should_receive(:parse_url_from_meta).with(Lowes::KenexaJobRedirectURL).and_return(Lowes::KenexaJobURL)
         end
 
         it 'should return the attributes for the job' do
@@ -35,7 +35,7 @@ describe Lowes do
 
         before do
           @item = double("item", :link => Lowes::KenexaExpiredJobRedirectURL)
-          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::KenexaExpiredJobRedirectURL).and_return(Lowes::KenexaExpiredJobURL)
+          Lowes::Job::Parser.should_receive(:parse_url_from_meta).with(Lowes::KenexaExpiredJobRedirectURL).and_return(Lowes::KenexaExpiredJobURL)
         end
 
         it 'should raise Job::ExpiredError' do
@@ -54,7 +54,7 @@ describe Lowes do
                          :link => Lowes::PeopleclickJobRedirectURL,
                          :title => "Program Development Analyst -NC-Wilkesboro",
                          :category => @category)
-          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::PeopleclickJobRedirectURL).and_return(Lowes::PeopleclickJobURL)
+          Lowes::Job::Parser.should_receive(:parse_url_from_meta).with(Lowes::PeopleclickJobRedirectURL).and_return(Lowes::PeopleclickJobURL)
         end
 
         it 'should return the attributes for the job' do
@@ -74,7 +74,7 @@ describe Lowes do
 
         before do
           @item = double("item", :link => Lowes::PeopleclickExpiredJobRedirectURL)
-          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::PeopleclickExpiredJobRedirectURL).and_return(Lowes::PeopleclickExpiredJobURL)
+          Lowes::Job::Parser.should_receive(:parse_url_from_meta).with(Lowes::PeopleclickExpiredJobRedirectURL).and_return(Lowes::PeopleclickExpiredJobURL)
         end
 
         it 'should raise Job::ExpiredError' do

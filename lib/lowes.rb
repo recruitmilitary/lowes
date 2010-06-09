@@ -8,10 +8,11 @@ module Lowes
     FEED_URL = "http://feeds2.feedburner.com/Lowes-Careers-All"
 
     ExpiredError = Class.new(StandardError)
+
     UnknownFormat = Class.new(StandardError)
 
     def self.parse(item)
-      url = parse_url_from_meta(item.link)
+      url = Parser.parse_url_from_meta(item.link)
       case url
       when /brassring/
         KenexaParser.parse(item, url)
@@ -22,10 +23,26 @@ module Lowes
       end
     end
 
+    module Agent
+
+      def agent
+        @agent ||= Mechanize.new
+      end
+
+    end
+
     class Parser
+
+      include Agent
+      extend Agent
 
       def self.parse(item, url)
         new(item, url).parse
+      end
+
+      def self.parse_url_from_meta(redirect_url)
+        redirect_page = agent.get(redirect_url)
+        Mechanize::Page::Meta.parse(redirect_page.at("meta").attr("content"), nil).last
       end
 
       attr_reader :item, :url
@@ -46,10 +63,6 @@ module Lowes
 
       def page
         @page ||= agent.get(url)
-      end
-
-      def agent
-        @agent ||= Mechanize.new
       end
 
     end
@@ -84,11 +97,6 @@ module Lowes
         }
       end
 
-    end
-
-    def self.parse_url_from_meta(redirect_url)
-      redirect_page = agent.get(redirect_url)
-      Mechanize::Page::Meta.parse(redirect_page.at("meta").attr("content"), nil).last
     end
 
     def self.agent
