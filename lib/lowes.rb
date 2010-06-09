@@ -99,19 +99,11 @@ module Lowes
 
     end
 
-    def self.agent
-      @agent ||= Mechanize.new
-    end
-
-    # public api
-
     def self.all
       feed.items.map do |item|
         create_job_from_item(item)
       end
     end
-
-    # internal methods
 
     def self.data
       open(FEED_URL).read
@@ -119,17 +111,6 @@ module Lowes
 
     def self.feed
       RSS::Parser.parse(data, false)
-    end
-
-    def self.create_job_from_item(item)
-      item.link =~ /jobid=(.*)$/
-      id = $1
-      Job.new(
-              :id           => id,
-              :title        => item.title,
-              :redirect_url => item.link,
-              :category     => item.category.content
-              )
     end
 
     attr_reader :id, :title, :redirect_url, :category
@@ -140,16 +121,6 @@ module Lowes
       end
     end
 
-    # public api
-
-    def url
-      Mechanize::Page::Meta.parse(redirect_page.at("meta").attr("content"), nil).last
-    end
-
-    def location
-      page.search("#pc-rtg-main tr:nth-child(1) .jobDetailValue span").text.strip.gsub(/\s+/, ' ')
-    end
-
     def city
       split_location[0]
     end
@@ -158,23 +129,7 @@ module Lowes
       split_location[-1]
     end
 
-    def description
-      page.search(".pc-rtg-body").text.strip
-    end
-
-    # internal methods
-
-    def agent
-      @agent ||= Mechanize.new
-    end
-
-    def page
-      @page ||= agent.get(url)
-    end
-
-    def redirect_page
-      @redirect_page ||= agent.get(redirect_url)
-    end
+    private
 
     def split_location
       location.split(", ")
