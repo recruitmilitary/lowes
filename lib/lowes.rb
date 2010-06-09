@@ -14,38 +14,76 @@ module Lowes
       url = parse_url_from_meta(item.link)
       case url
       when /brassring/
-        parse_kenexa(item, url)
+        KenexaParser.parse(item, url)
       when /peopleclick/
-        parse_peopleclick(item, url)
+        PeopleclickParser.parse(item, url)
       else
         raise UnknownFormat
       end
     end
 
-    def self.parse_kenexa(item, url)
-      page = agent.get(url)
-      raise ExpiredError if page.search("td td").text =~ /expired/
-      {
-        :id    => page.search(".TEXT")[1].text,
-        :url   => url,
-        :title => item.title.gsub(/ -\w\w-.*$/, ''),
-        :category => item.category.content,
-        :location => page.search(".TEXT")[5].text,
-        :description => page.search(".TEXT")[6].children.map { |c| c.text }.join("\n")
-      }
+    class Parser
+
+      def self.parse(item, url)
+        new(item, url).parse
+      end
+
+      attr_reader :item, :url
+
+      def initialize(item, url)
+        @item, @url = item, url
+      end
+
+      def title
+        item.title.gsub(/ -\w\w-.*$/, '')
+      end
+
+      def category
+        item.category.content
+      end
+
+      private
+
+      def page
+        @page ||= agent.get(url)
+      end
+
+      def agent
+        @agent ||= Mechanize.new
+      end
+
     end
 
-    def self.parse_peopleclick(item, url)
-      page = agent.get(url)
-      raise ExpiredError if page.search("li").text =~ /no longer active/
-      {
-        :id => page.search(".jobDetailValue")[0].text,
-        :url => url,
-        :title => item.title.gsub(/ -\w\w-.*$/, ''),
-        :category => item.category.content,
-        :location => page.search(".jobDetailValue")[1].text.strip.gsub(/\s+/, ' '),
-        :description => page.search(".pc-rtg-body").text.strip
-      }
+    class KenexaParser < Parser
+
+      def parse
+        raise ExpiredError if page.search("td td").text =~ /expired/
+        {
+          :id    => page.search(".TEXT")[1].text,
+          :url   => url,
+          :title => title,
+          :category => category,
+          :location => page.search(".TEXT")[5].text,
+          :description => page.search(".TEXT")[6].children.map { |c| c.text }.join("\n")
+        }
+      end
+
+    end
+
+    class PeopleclickParser < Parser
+
+      def parse
+        raise ExpiredError if page.search("li").text =~ /no longer active/
+        {
+          :id => page.search(".jobDetailValue")[0].text,
+          :url => url,
+          :title => title,
+          :category => category,
+          :location => page.search(".jobDetailValue")[1].text.strip.gsub(/\s+/, ' '),
+          :description => page.search(".pc-rtg-body").text.strip
+        }
+      end
+
     end
 
     def self.parse_url_from_meta(redirect_url)
