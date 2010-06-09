@@ -5,60 +5,73 @@ describe Lowes do
 
   describe Lowes::Job do
 
-    describe ".all" do
+    describe ".parse" do
 
-      before do
-        @jobs = Lowes::Job.all
+      describe "when kenexa" do
+
+        before do
+          @category = double("item category", :content => "Receiving/Stocking")
+          @item = double("item",
+                         :link => Lowes::KenexaJobRedirectURL,
+                         :title => "Seasonal Receiver/Stocker Overnight -NJ-Egg Harbor Township",
+                         :category => @category)
+          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::KenexaJobRedirectURL).and_return(Lowes::KenexaJobURL)
+        end
+
+        it 'should return the attributes for the job' do
+          Lowes::Job.parse(@item).should == {
+            :id => "10231BR",
+            :url => "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=10231BR&Codes=LOWES",
+            :title => "Seasonal Receiver/Stocker Overnight",
+            :category => "Receiving/Stocking",
+            :location => "Egg Harbor Township, NJ",
+            :description => "Position Description\n\n\nResponsible for safe, accurate and efficient receiving and stocking of in bound freight.\n\nGreet and acknowledge all customers in a friendly, professional manner and provide quick, responsive customer service.\n\n\nJob Requirements\n\n\nAbility to apply basic mathematical concepts such as adding, subtracting, multiplying, dividing and knowledge of weights and measures.  Understand and respond appropriately to basic customer and employee inquiries.  Read, write and communicate using English language sufficient to perform job functions (Other preferences will be given for special language skills when there is a business need).  Knowledge of company's mission, purpose, goals and the role of every employee in achieving each of them.  Ability to operate store equipment in assigned area (including but not limited to LRT, telephone, paging system, copiers, fax machines, computers, CCTV surveillance system, key cutting, panel saw, paint mixing computer, blind cutting, fork lifts, pallet jacks, electric lifts, etc).  Satisfactorily complete all Lowe's training requirements (including annual Hazardous Material, Forklift certification/training, etc).  Ability to interpret price tag and UPC information.  Ability to move throughout all areas of the store; sales floor, receiving, register areas, lawn and garden , including the outside perimeter of the store.  Move objects up to and exceeding 200 pounds with reasonable accommodations."
+          }
+        end
+
       end
 
-      it 'should return a list of jobs' do
-        @jobs.size.should == 1
+      describe "when kenexa and expired" do
+
+        before do
+          @item = double("item", :link => Lowes::KenexaExpiredJobRedirectURL)
+          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::KenexaExpiredJobRedirectURL).and_return(Lowes::KenexaExpiredJobURL)
+        end
+
+        it 'should raise Job::ExpiredError' do
+          lambda {
+            Lowes::Job.parse(@item)
+          }.should raise_error(Lowes::Job::ExpiredError)
+        end
+
+      end
+
+      describe "when peopleclick" do
+
+        it 'should return the attributes for the job'
+
+      end
+
+      describe "when peopleclick and expired" do
+
+        before do
+          @item = double("item", :link => Lowes::PeopleclickExpiredJobRedirectURL)
+          Lowes::Job.should_receive(:parse_url_from_meta).with(Lowes::PeopleclickExpiredJobRedirectURL).and_return(Lowes::PeopleclickExpiredJobURL)
+        end
+
+        it 'should raise Job::ExpiredError' do
+          lambda {
+            Lowes::Job.parse(@item)
+          }.should raise_error(Lowes::Job::ExpiredError)
+        end
+
       end
 
     end
 
-    describe "instance" do
+    describe ".all" do
 
-      before do
-        @jobs = Lowes::Job.all
-        @job  = @jobs.first
-      end
-
-      it 'should extract the title' do
-        @job.title.should == "Assembler -NJ-North Bergen"
-      end
-
-      it 'should extract the link' do
-        @job.redirect_url.should == "https://careers.lowes.com/GotoKenexa.aspx?jobid=10856BR"
-      end
-
-      it 'should extract the id' do
-        @job.id.should == "10856BR"
-      end
-
-      it 'should extract the category' do
-        @job.category.should == "Customer Service"
-      end
-
-      it 'should extract the url from the meta tag' do
-        @job.url.should == "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=10856BR&Codes=LOWES"
-      end
-
-      it 'should extract the location' do
-        @job.location.should == "Mooresville, North Carolina"
-      end
-
-      it 'should extract the city from location' do
-        @job.city.should == "Mooresville"
-      end
-
-      it 'should extract the state from location' do
-        @job.state.should == "North Carolina"
-      end
-
-      it 'should extract the description' do
-        @job.description.should == %Q{The Lowes.com IT Project Manager is responsible for the management of various Lowes.com projects and/or the maintenance and enhancement of the Lowes.com family of applications. The Lowes.com IT Project Manager works closely with the Lowes.com business, other IT departments, and resource and software vendors in  the analysis, design, scheduling, development, and implementation of new and upgrades to Lowes.com systems and the maintenance of current systems. The Lowes.com  IT Project Manager manages day-to-day operational aspects of project which includes but is not limited to:o Identifies resource needs and monitors individual activitieso Performs project planning and estimatingo Produces/reviews status reports and take action on issueso Manages issues to timely resolutiono Identifies and track riskso Monitors project hourso Budget trackingo Manages financial, temporal, and deliverable scopes of projects o Facilitates weekly status meetingso Reviews and approves deliverables prepared by teamo Ensures documents are complete, current and stored in appropriate locationo Complies with Lowe’s methodology, enforces policies, standards, including internal and external controls o Provides timely review and approval of time and invoices according to policieso Selects and manages contract personnelo Manages offsite resourceso Manages 3rd party software vendors\r\n\t      \t\t\r\n\t\t\t\t\t• Seven to ten years of systems development experience with increasing levels of management responsibility• A minimum of a Bachelor’s Degree or comparable job-related experience is required• Strong understanding of large-scale commerce enabled web properties• Demonstrable ability to successfully deliver web-based applications• Demonstrable ability to successfully deliver technical solutions to business problems• Demonstrable leadership and coaching skills• Demonstrable communication skills• Demonstrable planning skills• Strong prioritization skills• Demonstrable knowledge of quality standards• Demonstrable knowledge of IT methodology• Demonstrable knowledge of office suite products and project planning tools\r\n          \t\t\r\n\t\t\t\t\t• Time management skills • Organizational skills• Negotiating skills• Retail systems and eCommerce business knowledge• Four-year degree in Computer Science or Information Systems• Advanced degree in business or technical subject areas is helpful• Knowledge of general accepted computing controls• Familiarity with IBM Websphere Commerce• Familiarity with object oriented methodologies, tools, and techniques}
-      end
+      it 'should return a list of jobs'
 
     end
 

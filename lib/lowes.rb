@@ -7,6 +7,48 @@ module Lowes
 
     FEED_URL = "http://feeds2.feedburner.com/Lowes-Careers-All"
 
+    ExpiredError = Class.new(StandardError)
+    UnknownFormat = Class.new(StandardError)
+
+    def self.parse(item)
+      url = parse_url_from_meta(item.link)
+      case url
+      when /brassring/
+        parse_kenexa(item, url)
+      when /peopleclick/
+        parse_peopleclick(item, url)
+      else
+        raise UnknownFormat
+      end
+    end
+
+    def self.parse_kenexa(item, url)
+      page = agent.get(url)
+      raise ExpiredError if page.search("td td").text =~ /expired/
+      {
+        :id    => page.search(".TEXT")[1].text,
+        :url   => url,
+        :title => item.title.gsub(/ -\w\w-.*$/, ''),
+        :category => item.category.content,
+        :location => page.search(".TEXT")[5].text,
+        :description => page.search(".TEXT")[6].children.map { |c| c.text }.join("\n")
+      }
+    end
+
+    def self.parse_peopleclick(item, url)
+      page = agent.get(url)
+      raise ExpiredError if page.search("li").text =~ /no longer active/
+    end
+
+    def self.parse_url_from_meta(redirect_url)
+      redirect_page = agent.get(redirect_url)
+      Mechanize::Page::Meta.parse(redirect_page.at("meta").attr("content"), nil).last
+    end
+
+    def self.agent
+      @agent ||= Mechanize.new
+    end
+
     # public api
 
     def self.all
