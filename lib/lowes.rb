@@ -169,7 +169,11 @@ module Lowes
     private
 
     def split_location
-      location.split(", ")
+      if location
+        location.split(", ")
+      else
+        [nil, nil]
+      end
     end
 
   end
