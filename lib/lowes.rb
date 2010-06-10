@@ -69,13 +69,30 @@ module Lowes
       def parse
         raise ExpiredError if page.search("td td").text =~ /expired/
         {
-          :id    => page.search(".TEXT")[1].text,
+          :id    => field_value_for("Job ID"),
           :url   => url,
           :title => title,
           :category => category,
-          :location => page.search(".TEXT")[5].text,
+          :location => field_value_for("Location Name"),
           :description => description
         }
+      end
+
+      def field_labels
+        @field_labels ||= page.search(".Fieldlabel").map { |l| l.text }
+      end
+
+      def field_values
+        @field_values ||= page.search(".TEXT").map { |f| f.text }
+      end
+
+      def field_value_for(label)
+        index = field_labels.index(label)
+        if index
+          field_values[index]
+        else
+          nil
+        end
       end
 
     end
