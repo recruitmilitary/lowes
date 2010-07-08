@@ -97,29 +97,11 @@ module Lowes
 
     end
 
-    class PeopleclickParser < Parser
-
-      def parse
-        raise ExpiredError if page.search("li").text =~ /no longer active/
-        {
-          :id => page.search(".jobDetailValue")[0].text,
-          :url => url,
-          :title => title,
-          :category => category,
-          :location => page.search(".jobDetailValue")[1].text.strip.gsub(/\s+/, ' '),
-          :description => page.search(".pc-rtg-body").text.strip
-        }
-      end
-
-    end
-
     def self.parse(item)
       url = Parser.parse_url_from_meta(item.link)
       case url
       when /brassring/
         KenexaParser.parse(item, url)
-      when /peopleclick/
-        PeopleclickParser.parse(item, url)
       else
         raise UnknownFormat
       end

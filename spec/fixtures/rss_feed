@@ -13,8 +13,6 @@ Transfer-Encoding: chunked
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2full.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><rss version="2.0"><channel><title>Lowe's Careers</title><link>https://careers.lowes.com/Rss.aspx</link><copyright>Copyright 2007-2008 Lowes</copyright><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://feeds.feedburner.com/Lowes-Careers-All" /><feedburner:info xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" uri="lowes-careers-all" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" />
 <item><title>Seasonal Receiver/Stocker Overnight -NJ-Egg Harbor Township</title><link>https://careers.lowes.com/GotoKenexa.aspx?jobid=10231BR</link><identifier>10231BR</identifier><category>Receiving/Stocking</category></item>
-<item><title>Program Development Analyst -NC-Wilkesboro</title><link>https://careers.lowes.com/Gotopeopleclick.aspx?Jobid=155060</link><identifier>155060</identifier><category>Repair Services</category></item>
 <item><title>Expired Kenexa</title><link>https://careers.lowes.com/GotoKenexa.aspx?jobid=EXPIRED</link><identifier>10231BR</identifier><category>Receiving/Stocking</category></item>
-<item><title>Expired Peopleclick</title><link>https://careers.lowes.com/Gotopeopleclick.aspx?Jobid=EXPIRED</link><identifier>155060</identifier><category>Repair Services</category></item>
 
 </channel></rss>

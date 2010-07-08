@@ -21,19 +21,9 @@ Lowes::KenexaJobURL = "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp
 Lowes::KenexaJobMissingLocationRedirectURL = "https://careers.lowes.com/GotoKenexa.aspx?jobid=MISSING_LOCATION"
 Lowes::KenexaJobMissingLocationURL = "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=MISSING_LOCATION&Codes=LOWES"
 
-
-Lowes::PeopleclickExpiredJobRedirectURL = "https://careers.lowes.com/Gotopeopleclick.aspx?Jobid=EXPIRED"
-Lowes::PeopleclickExpiredJobURL = "http://careers.peopleclick.com/careerscp/client_lowes/external/gateway.do?functionName=viewFromLink&jobPostId=EXPIRED&localeCode=en-us"
-Lowes::PeopleclickJobRedirectURL = "https://careers.lowes.com/Gotopeopleclick.aspx?Jobid=155060"
-Lowes::PeopleclickJobURL = "http://careers.peopleclick.com/careerscp/client_lowes/external/gateway.do?functionName=viewFromLink&jobPostId=155060&localeCode=en-us"
-
 stub_get("http://feeds2.feedburner.com/Lowes-Careers-All", "rss_feed")
 stub_get(Lowes::KenexaExpiredJobURL, "kenexa_expired_job")
 stub_get(Lowes::KenexaJobURL, "kenexa_job")
 stub_get(Lowes::KenexaJobRedirectURL, "kenexa_redirect")
 stub_get(Lowes::KenexaExpiredJobRedirectURL, "kenexa_expired_redirect")
-stub_get(Lowes::PeopleclickExpiredJobURL, "peopleclick_expired_job")
-stub_get(Lowes::PeopleclickJobURL, "peopleclick_job")
-stub_get(Lowes::PeopleclickJobRedirectURL, "peopleclick_redirect")
-stub_get(Lowes::PeopleclickExpiredJobRedirectURL, "peopleclick_expired_redirect")
 stub_get(Lowes::KenexaJobMissingLocationURL, "kenexa_missing_location_job")
