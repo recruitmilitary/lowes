@@ -15,13 +15,13 @@ describe Lowes do
                          :link => Lowes::KenexaJobRedirectURL,
                          :title => "Seasonal Receiver/Stocker Overnight -NJ-Egg Harbor Township",
                          :category => @category)
-          Lowes::Job::Parser.should_receive(:parse_url_from_meta).with(Lowes::KenexaJobRedirectURL).and_return(Lowes::KenexaJobURL)
+          Lowes::Job::Parser.should_receive(:parse_url_from_interstitial_page).with(Lowes::KenexaJobRedirectURL).and_return(Lowes::KenexaJobURL)
         end
 
         it 'should return the attributes for the job' do
           Lowes::Job.parse(@item).should == {
             :id => "10231BR",
-            :url => "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=10231BR&Codes=LOWES",
+            :url => "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=10099BR&Codes=LOWES",
             :title => "Seasonal Receiver/Stocker Overnight",
             :category => "Receiving/Stocking",
             :location => "Egg Harbor Township, NJ",

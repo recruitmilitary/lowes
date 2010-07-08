@@ -11,7 +11,7 @@ describe Lowes::Job::KenexaParser do
                      :link => Lowes::KenexaJobMissingLocationRedirectURL,
                      :title => "Receiver/Stocker -SC-Florence",
                      :category => @category)
-      Lowes::Job::Parser.should_receive(:parse_url_from_meta).with(Lowes::KenexaJobMissingLocationRedirectURL).and_return(Lowes::KenexaJobMissingLocationURL)
+      Lowes::Job::Parser.should_receive(:parse_url_from_interstitial_page).with(Lowes::KenexaJobMissingLocationRedirectURL).and_return(Lowes::KenexaJobMissingLocationURL)
       @job = Lowes::Job.parse(@item)
     end
 

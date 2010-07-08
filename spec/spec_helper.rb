@@ -17,7 +17,7 @@ end
 Lowes::KenexaExpiredJobRedirectURL = "https://careers.lowes.com/GotoKenexa.aspx?jobid=EXPIRED"
 Lowes::KenexaExpiredJobURL = "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=EXPIRED&Codes=LOWES"
 Lowes::KenexaJobRedirectURL = "https://careers.lowes.com/GotoKenexa.aspx?jobid=10231BR"
-Lowes::KenexaJobURL = "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=10231BR&Codes=LOWES"
+Lowes::KenexaJobURL = "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=10099BR&Codes=LOWES"
 Lowes::KenexaJobMissingLocationRedirectURL = "https://careers.lowes.com/GotoKenexa.aspx?jobid=MISSING_LOCATION"
 Lowes::KenexaJobMissingLocationURL = "https://sjobs.brassring.com/1033/ASP/TG/cim_jobdetail.asp?partnerid=25239&siteid=5014&AReq=MISSING_LOCATION&Codes=LOWES"
 

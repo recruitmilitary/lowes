@@ -28,9 +28,9 @@ module Lowes
         new(item, url).parse
       end
 
-      def self.parse_url_from_meta(redirect_url)
+      def self.parse_url_from_interstitial_page(redirect_url)
         redirect_page = agent.get(redirect_url)
-        Mechanize::Page::Meta.parse(redirect_page.at("meta").attr("content"), nil).last
+        redirect_page.search("a#lnkapply").attr("href").value
       end
 
       attr_reader :item, :url
@@ -98,7 +98,7 @@ module Lowes
     end
 
     def self.parse(item)
-      url = Parser.parse_url_from_meta(item.link)
+      url = Parser.parse_url_from_interstitial_page(item.link)
       case url
       when /brassring/
         KenexaParser.parse(item, url)
