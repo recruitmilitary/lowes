@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{lowes}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Michael Guterl"]
-  s.date = %q{2010-04-08}
+  s.date = %q{2010-08-06}
   s.description = %q{Scrape jobs off of Lowes' career site}
   s.email = %q{michael@recruitmilitary.com}
   s.extra_rdoc_files = [
@@ -25,9 +25,14 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/lowes.rb",
      "lowes.gemspec",
-     "spec/fixtures/job.html",
+     "spec/fixtures/kenexa_expired_job",
+     "spec/fixtures/kenexa_expired_redirect",
+     "spec/fixtures/kenexa_job",
+     "spec/fixtures/kenexa_missing_location_job",
+     "spec/fixtures/kenexa_redirect",
      "spec/fixtures/lowes.rss",
-     "spec/fixtures/redirect.html",
+     "spec/fixtures/rss_feed",
+     "spec/lowes_job_without_location_spec.rb",
      "spec/lowes_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -35,10 +40,11 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/recruitmilitary/lowes}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Scrape jobs off of Lowes' career site}
   s.test_files = [
-    "spec/lowes_spec.rb",
+    "spec/lowes_job_without_location_spec.rb",
+     "spec/lowes_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -46,7 +52,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
       s.add_development_dependency(%q<fakeweb>, [">= 1.2.8"])
       s.add_runtime_dependency(%q<mechanize>, [">= 1.0.0"])
