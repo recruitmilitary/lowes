@@ -58,7 +58,7 @@ module Lowes
     class KenexaParser < Parser
 
       def description
-        node = page.search(".TEXT")[6]
+        node = field_for("Job Description")
         if node
           node.children.map { |c| c.text }.join("\n")
         else
@@ -86,12 +86,21 @@ module Lowes
         @field_values ||= page.search(".TEXT").map { |f| f.text }
       end
 
+      def fields
+        @fields ||= page.search(".TEXT")
+      end
+
+      def field_for(label)
+        index = field_labels.index(label)
+        if index
+          fields[index]
+        end
+      end
+
       def field_value_for(label)
         index = field_labels.index(label)
         if index
           field_values[index]
-        else
-          nil
         end
       end
 
